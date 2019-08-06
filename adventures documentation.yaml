@@ -1,0 +1,73 @@
+#Layout of swagger file:
+# General information
+# Paths
+# Definitions
+
+# General information ###############################################################
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Adventures of Jojo and Junior
+  description: API for a cooperative multiplayer browser game
+  contact:
+    name: Daniel Posse
+    url: http://github.com/dposse
+    email: dan.e.posse@gmail.com
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+host: PATH
+basePath: /
+consumes:
+  - application/json
+produces: 
+  - application/json
+schemes: 
+  - https
+# Paths #############################################################################
+paths:
+  /login:
+    post:
+      tags: 
+        - User
+      summary: Logs user into the system
+      description: ''
+      parameters:
+        - name: loginInfo
+          in: body
+          description: User's username and password
+          required: true
+          schema:
+            $ref: '#/definitions/LoginInfo'
+      responses:
+        200: 
+          description: auth token? cookie?
+        400:
+          description: Invalid username or password
+          schema:
+            $ref: '#/definitions/Error'
+            
+# Definitions #######################################################################
+definitions:
+  LoginInfo:
+    type: object
+    required: 
+      - username
+      - password
+    properties:
+      username:
+        type: string
+        example: 'yellowleopard753'
+      password:
+        type: string
+        example: 'jonjon'
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
